@@ -37,16 +37,28 @@ while delta > theta:
 print("Valeurs :", values)
 
 # Extraction de la politique
-policy = np.zeros(MAX_STICKS+1)
+policy = np.zeros(MAX_STICKS + 1)
+
 for state in range(2, MAX_STICKS + 1):
-    a = 0
-    bv = float("inf")
+    best_value = -float("inf")
+    best_action = 0
+
+    V = np.array([])
+
     for action in action_space:
-        if state - action >= 0:
-            if bv > values[state-action]:
-                bv = values[state-action]
-                a = action
-    policy[state] = a
+        sp = state - action
+
+        if sp < 0 :
+            V [action] = -float('inf')
+        else:
+            V[action] = reward(sp)+gamma*values(sp)
+
+    best_action = np.argmax(V)
+        
+
+
+    policy[state] = best_action
+
 
 print("Politique de l'IA (nombre de bâtonnets à prendre) :")
 print(policy)
