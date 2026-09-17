@@ -91,7 +91,7 @@ def TD():
 def DP():
     global values
     hist = [values.copy()]
-    for episode in range(8):
+    for step in range(8):
         for i in range(1, len(rewards)-1): # Ne pas traiter les états terminaux
             state_left = i - 1
             r_left = rewards[state_left]
@@ -113,7 +113,7 @@ def DP():
             L.append(l[s])
         plt.plot(L, c=colors_hist[s], label=f"valeur de l'état {s}")
 
-    plt.xlabel("épisodes")
+    plt.xlabel("itérations")
     plt.ylabel("valeur d'état")
     plt.legend()
     plt.title("Figure gridworld 1D DP")
